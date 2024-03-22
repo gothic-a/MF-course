@@ -6,14 +6,15 @@ const packageJson = require('../package.json')
 module.exports = merge(common, {
 	mode: 'production',
 	output: {
-		filename: '[name].js',
+		filename: '[name].[contenthash].js',
+		publicPath: '/marketing/latest/',
 	},
 	plugins: [
 		new ModuleFederationPlugin({
 			name: 'marketing',
 			filename: 'remoteEntry.js',
 			exposes: {
-				Root: `./src/bootstrap`,
+				'./Root': `./src/bootstrap`,
 			},
 			shared: packageJson.dependencies,
 		}),

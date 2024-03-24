@@ -6,9 +6,10 @@ const MarketingRemote = () => {
 
 	useEffect(() => {
 		render(ref.current)
+		console.log('render')
 	}, [])
 
-	return <div ref={ref} id="marketing-root"></div>
+	return <div ref={ref} id="marketing-root" />
 }
 
 export default MarketingRemote

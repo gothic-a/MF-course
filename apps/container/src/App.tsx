@@ -1,12 +1,15 @@
 import MarketingRemote from './remotes/Marketing'
+import Header from './components'
+import { BrowserRouter } from 'react-router-dom'
 
 const App = () => {
 	return (
-		<div>
-			<h1>Host app title!</h1>
-			<hr />
-			<MarketingRemote />
-		</div>
+		<BrowserRouter>
+			<div>
+				<Header signedIn={false} onSignOut={() => console.log('qwe')} />
+				<MarketingRemote />
+			</div>
+		</BrowserRouter>
 	)
 }
 

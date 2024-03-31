@@ -10,6 +10,7 @@ module.exports = merge(commonConfig, {
 		static: './dist',
 		port: 3001,
 		hot: true,
+		historyApiFallback: true,
 	},
 	plugins: [
 		new ModuleFederationPlugin({

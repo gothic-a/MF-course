@@ -1,9 +1,9 @@
-import { render } from 'marketing/Root'
+import { render } from 'auth/Root'
 import { useRef, useEffect } from 'react'
 import { OnNavigationCallbackProps } from '../../types/remotes'
 import { useHistory } from 'react-router-dom'
 
-const MarketingRemote = () => {
+const AuthRemote = () => {
 	const ref = useRef(null)
 
 	const history = useHistory()
@@ -23,7 +23,7 @@ const MarketingRemote = () => {
 		history.listen(onNavigate)
 	}, [])
 
-	return <div ref={ref} id="marketing-root" />
+	return <div ref={ref} id="auth-root" />
 }
 
-export default MarketingRemote
+export default AuthRemote

@@ -75,7 +75,7 @@ export default function Header({ signedIn, onSignOut }: IProps) {
 						variant="outlined"
 						className={classes.link}
 						component={RouterLink}
-						to={signedIn ? '/' : '/auth/signin'}
+						to={signedIn ? '/' : '/auth/sign-in'}
 						onClick={onClick}
 					>
 						{signedIn ? 'Logout' : 'Login'}

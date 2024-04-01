@@ -4,11 +4,16 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 
 const packageJson = require('../package.json')
 
+const PORT = 3001
+
 module.exports = merge(commonConfig, {
 	mode: 'development',
+	output: {
+		publicPath: `http://localhost:${PORT}/`,
+	},
 	devServer: {
 		static: './dist',
-		port: 3001,
+		port: PORT,
 		hot: true,
 		historyApiFallback: true,
 	},

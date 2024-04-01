@@ -2,11 +2,11 @@ import { Switch, Route, Router } from 'react-router-dom'
 import { StylesProvider, createGenerateClassName } from '@material-ui/core'
 import { History } from 'history'
 
-import Pricing from './components/Pricing'
-import Landing from './components/Landing'
+import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
 
 const generateClassName = createGenerateClassName({
-	productionPrefix: 'r_ma',
+	productionPrefix: 'r_au',
 })
 
 interface Props {
@@ -18,8 +18,8 @@ const App = ({ history }: Props) => {
 		<StylesProvider generateClassName={generateClassName}>
 			<Router history={history}>
 				<Switch>
-					<Route exact path="/pricing" component={Pricing} />
-					<Route path="/" component={Landing} />
+					<Route path="/auth/sign-in" component={SignIn} />
+					<Route path="/auth/sign-up" component={SignUp} />
 				</Switch>
 			</Router>
 		</StylesProvider>

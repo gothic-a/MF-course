@@ -1,20 +1,30 @@
 const { merge } = require('webpack-merge')
-const common = require('./webpack.common')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const commonConfig = require('./webpack.common')
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 
-module.exports = merge(common, {
+const packageJson = require('../package.json')
+
+const PORT = 3002
+
+module.exports = merge(commonConfig, {
 	mode: 'development',
+	output: {
+		publicPath: `http://localhost:${PORT}/`,
+	},
 	devServer: {
 		static: './dist',
-		port: 3002,
+		port: PORT,
 		hot: true,
-		historyApiFallback: {
-			index: 'index.html',
-		},
+		historyApiFallback: true,
 	},
 	plugins: [
-		new HtmlWebpackPlugin({
-			template: './public/index.html',
+		new ModuleFederationPlugin({
+			name: 'auth',
+			filename: 'remoteEntry.js',
+			exposes: {
+				'./Root': './src/bootstrap',
+			},
+			shared: packageJson.dependencies,
 		}),
 	],
 })

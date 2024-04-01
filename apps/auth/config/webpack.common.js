@@ -1,6 +1,16 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
+	resolve: {
+		extensions: ['.ts', '.js', '.tsx'],
+	},
 	module: {
 		rules: [
+			{
+				test: /\.tsx?$/,
+				exclude: /node_modules/,
+				use: 'ts-loader',
+			},
 			{
 				test: /\.m?js$/,
 				exclude: /node_modules/,
@@ -14,4 +24,9 @@ module.exports = {
 			},
 		],
 	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: './public/index.html',
+		}),
+	],
 }

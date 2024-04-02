@@ -11,15 +11,20 @@ const generateClassName = createGenerateClassName({
 
 interface Props {
 	history: History
+	onSignIn?: () => void
 }
 
-const App = ({ history }: Props) => {
+const App = ({ history, onSignIn }: Props) => {
 	return (
 		<StylesProvider generateClassName={generateClassName}>
 			<Router history={history}>
 				<Switch>
-					<Route path="/auth/sign-in" component={SignIn} />
-					<Route path="/auth/sign-up" component={SignUp} />
+					<Route path="/auth/sign-in">
+						<SignIn onSignIn={onSignIn} />
+					</Route>
+					<Route path="/auth/sign-up">
+						<SignUp onSignUp={onSignIn} />
+					</Route>
 				</Switch>
 			</Router>
 		</StylesProvider>

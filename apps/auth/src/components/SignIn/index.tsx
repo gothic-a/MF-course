@@ -1,4 +1,3 @@
-import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -11,7 +10,6 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { Link } from 'react-router-dom'
-import { AuthPageProps } from '../../types'
 
 function Copyright() {
 	return (
@@ -51,7 +49,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-export default function SignIn({ onSignIn }: AuthPageProps) {
+interface Props {
+	onSignIn: () => void
+}
+
+export default function SignIn({ onSignIn }: Props) {
 	const classes = useStyles()
 
 	return (
@@ -99,7 +101,7 @@ export default function SignIn({ onSignIn }: AuthPageProps) {
 					</Button>
 					<Grid container>
 						<Grid item>
-							<Link to="/auth/signup">{"Don't have an account? Sign Up"}</Link>
+							<Link to="/auth/sign-up">{"Don't have an account? Sign Up"}</Link>
 						</Grid>
 					</Grid>
 				</form>

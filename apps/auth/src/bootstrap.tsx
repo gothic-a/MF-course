@@ -9,10 +9,11 @@ interface RenderOptions {
 	onNavigate?: OnNavigateCallback
 	initialPathname?: string
 	defaultHistory?: ReturnType<typeof createBrowserHistory> | ReturnType<typeof createMemoryHistory>
+	onSignIn?: () => void
 }
 
 const render = (root: HTMLElement, options: RenderOptions) => {
-	const { defaultHistory, initialPathname } = options
+	const { defaultHistory, initialPathname, onSignIn } = options
 
 	const history =
 		defaultHistory ??
@@ -26,12 +27,10 @@ const render = (root: HTMLElement, options: RenderOptions) => {
 		history.listen(onNavigate)
 	}
 
-	ReactDOM.render(<App history={history} />, root)
+	ReactDOM.render(<App history={history} onSignIn={onSignIn} />, root)
 
 	const onParentNavigate: OnNavigateCallback = ({ pathname: nextPathname }) => {
 		const { pathname } = history.location
-
-		console.log(nextPathname)
 
 		if (nextPathname !== pathname) history.push(nextPathname)
 	}

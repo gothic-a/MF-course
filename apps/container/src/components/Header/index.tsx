@@ -52,15 +52,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface IProps {
-	signedIn: boolean
+	isSignedIn: boolean
 	onSignOut: () => void
 }
 
-export default function Header({ signedIn, onSignOut }: IProps) {
+export default function Header({ isSignedIn, onSignOut }: IProps) {
 	const classes = useStyles()
 
 	const onClick = () => {
-		if (signedIn && onSignOut) onSignOut()
+		if (isSignedIn && onSignOut) onSignOut()
 	}
 
 	return (
@@ -75,10 +75,10 @@ export default function Header({ signedIn, onSignOut }: IProps) {
 						variant="outlined"
 						className={classes.link}
 						component={RouterLink}
-						to={signedIn ? '/' : '/auth/sign-in'}
+						to={isSignedIn ? '/' : '/auth/sign-in'}
 						onClick={onClick}
 					>
-						{signedIn ? 'Logout' : 'Login'}
+						{isSignedIn ? 'Logout' : 'Login'}
 					</Button>
 				</Toolbar>
 			</AppBar>

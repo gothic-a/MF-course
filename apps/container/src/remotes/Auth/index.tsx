@@ -3,7 +3,11 @@ import { useRef, useEffect } from 'react'
 import { OnNavigationCallbackProps } from '../../types/remotes'
 import { useHistory } from 'react-router-dom'
 
-const AuthRemote = () => {
+interface Props {
+	onSignIn: () => void
+}
+
+const AuthRemote = ({ onSignIn }: Props) => {
 	const ref = useRef(null)
 
 	const history = useHistory()
@@ -16,6 +20,7 @@ const AuthRemote = () => {
 
 				if (nextPathname !== pathname) history.push(nextPathname)
 			},
+			onSignIn,
 		}
 
 		const { onNavigate } = render(ref.current, options)

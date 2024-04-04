@@ -4,7 +4,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 
 const packageJson = require('../package.json')
 
-const PORT = 3000
+const PORT = 3003
 
 module.exports = merge(commonConfig, {
 	mode: 'development',
@@ -16,14 +16,16 @@ module.exports = merge(commonConfig, {
 		port: PORT,
 		hot: true,
 		historyApiFallback: true,
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+		},
 	},
 	plugins: [
 		new ModuleFederationPlugin({
-			name: 'host-app',
-			remotes: {
-				marketing: 'marketing@http://localhost:3001/remoteEntry.js',
-				auth: 'auth@http://localhost:3002/remoteEntry.js',
-				dashboard: 'dashboard@http://localhost:3003/remoteEntry.js',
+			name: 'dashboard',
+			filename: 'remoteEntry.js',
+			exposes: {
+				'./Root': './src/bootstrap',
 			},
 			shared: packageJson.dependencies,
 		}),

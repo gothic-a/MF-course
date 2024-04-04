@@ -3,9 +3,11 @@ import Loader from './components/Loader'
 
 const MarketingRemote = lazy(() => import('./remotes/Marketing'))
 const AuthRemote = lazy(() => import('./remotes/Auth'))
+const DashboardRemote = lazy(() => import('./remotes/Dashboard'))
 
 import Header from './components/Header'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Router, Route, Switch, Redirect } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
 
 import { StylesProvider, createGenerateClassName } from '@material-ui/core'
 
@@ -13,16 +15,18 @@ const generateClassName = createGenerateClassName({
 	productionPrefix: 'h_co',
 })
 
+const history = createBrowserHistory()
+
 const App = () => {
 	const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null)
 
 	const handleSignIn = (value: boolean) => () => {
-		console.log('in sign in')
+		if (value) history.push('/dashboard')
 		setIsSignedIn(value)
 	}
 
 	return (
-		<BrowserRouter>
+		<Router history={history}>
 			<StylesProvider generateClassName={generateClassName}>
 				<div>
 					<Header isSignedIn={isSignedIn} onSignOut={handleSignIn(false)} />
@@ -31,6 +35,10 @@ const App = () => {
 							<Route path="/auth">
 								<AuthRemote onSignIn={handleSignIn(true)} />
 							</Route>
+							<Route path="/dashboard">
+								{!isSignedIn && <Redirect to="/" />}
+								<DashboardRemote />
+							</Route>
 							<Route path="/">
 								<MarketingRemote />
 							</Route>
@@ -38,7 +46,7 @@ const App = () => {
 					</Suspense>
 				</div>
 			</StylesProvider>
-		</BrowserRouter>
+		</Router>
 	)
 }
 
